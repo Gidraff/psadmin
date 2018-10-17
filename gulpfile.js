@@ -16,6 +16,7 @@ var config = {
     paths: {
         html: './src/*.html',
         js: './src/**/*.js',
+        images: './src/images/*',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -48,7 +49,7 @@ gulp.task('html', function() {
         .pipe(connect.reload());
 });
 
-// Browserify Bundles all js into one file and put it in script folder under dist
+// Bundles all js into one file and migrates them to dist
 gulp.task('js', function() {
     browserify(config.paths.mainJs)
         .transform(reactify)
@@ -65,6 +66,13 @@ gulp.task('css', function() {
         .pipe(concat('bundle.css'))
         .pipe(gulp.dest(config.paths.dist + '/css'));
 })
+
+// Migrates images to dist folder
+// gulp.task('images', function() {
+//   gulp.src(config.paths.images)
+//       .pipe(gulp.dest(config.paths.dist + '/images'))
+//       .pipe(connect.reload());
+// })
 
 // Lint task
 gulp.task('lint', function() {
